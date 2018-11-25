@@ -1,7 +1,7 @@
 #ifndef _CONSOLE_H_
 #define _CONSOLE_H_
 #include<cstdlib>
-#define WIN_OS
+//#define WIN_OS
 #ifdef WIN_OS
 #include<cstdio>
 #include<windows.h>
