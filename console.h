@@ -1,9 +1,9 @@
 #ifndef _CONSOLE_H_
 #define _CONSOLE_H_
-#include<cstdlib>
 //#define WIN_OS
 #ifdef WIN_OS
 #include<cstdio>
+#include<cstdlib>
 #include<windows.h>
 #include<conio.h>
 #else
@@ -59,13 +59,11 @@ class Console{
 			#endif
 		}
 		static void clear(){
-			system(
-				#ifdef WIN_OS
-				"cls"
-				#else
-				"clear"
-				#endif
-			);
+			#ifdef WIN_OS
+				system("cls");
+			#else
+				::clear();
+			#endif
 		}
 		static void sleep(unsigned ms){
 			#ifdef WIN_OS
