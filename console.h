@@ -42,11 +42,28 @@ class Console{
 			#endif
 		}
 		template<typename... Args>
+		static void scan(const char *str,Args... args){
+			#ifdef WIN_OS
+			scanf(str,args...);
+			#else
+			scanw(str,args...);
+			#endif
+		}
+		template<typename... Args>
 		static void print(const char *str,Args... args){
 			#ifdef WIN_OS
 			printf(str,args...);
 			#else
 			printw(str,args...);
+			#endif
+		}
+		template<typename... Args>
+		static void mvscan(int x,int y,const char *str,Args... args){
+			#ifdef WIN_OS
+			move(x,y);
+			scanf(str,args...);
+			#else
+			mvscanw(x,y,str,args...);
 			#endif
 		}
 		template<typename... Args>
