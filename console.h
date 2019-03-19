@@ -8,6 +8,7 @@
 #include<conio.h>
 #else
 #include<curses.h>
+#include<unistd.h>
 #endif
 class Console{
 	public:
