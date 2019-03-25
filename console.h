@@ -1,6 +1,6 @@
 #ifndef _CONSOLE_H_
 #define _CONSOLE_H_
-//#define WIN_OS
+#include"os.h"
 #ifdef WIN_OS
 #include<cstdio>
 #include<cstdlib>
