@@ -70,7 +70,7 @@ class Console{
 				short m_id;
 				#endif
 		};
-		static void cursor_set(bool visible){
+		static void cursor_set(bool visible)noexcept{
 			#ifdef WIN_OS
 			HANDLE hout=GetStdHandle(STD_OUTPUT_HANDLE);
 			CONSOLE_CURSOR_INFO cci;
@@ -81,18 +81,15 @@ class Console{
 			curs_set(visible);
 			#endif
 		}
-		static bool echo(bool e=true){
-			#ifdef WIN_OS
-			return false;
-			#else
+		static void echo(bool e=true)noexcept{
+			#ifndef WIN_OS
 			if(e)
 				::echo();
 			else
 				noecho();
-			return true;
 			#endif
 		}
-		static void move(int x,int y){
+		static void move(int x,int y)noexcept{
 			#ifdef WIN_OS
 			HANDLE hout=GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleCursorPosition(hout,{(short)y,(short)x});
@@ -101,7 +98,7 @@ class Console{
 			#endif
 		}
 		template<typename... Args>
-		static void scan(const char *str,Args... args){
+		static void scan(const char *str,Args... args)noexcept{
 			#ifdef WIN_OS
 			scanf(str,args...);
 			#else
@@ -109,7 +106,7 @@ class Console{
 			#endif
 		}
 		template<typename... Args>
-		static void print(const char *str,Args... args){
+		static void print(const char *str,Args... args)noexcept{
 			#ifdef WIN_OS
 			printf(str,args...);
 			#else
@@ -117,7 +114,7 @@ class Console{
 			#endif
 		}
 		template<typename... Args>
-		static void print(const Color &color,const char *str,Args... args){
+		static void print(const Color &color,const char *str,Args... args)noexcept{
 			color.Begin();
 			#ifdef WIN_OS
 			printf(str,args...);
@@ -127,7 +124,7 @@ class Console{
 			color.End();
 		}
 		template<typename... Args>
-		static void mvscan(int x,int y,const char *str,Args... args){
+		static void mvscan(int x,int y,const char *str,Args... args)noexcept{
 			#ifdef WIN_OS
 			move(x,y);
 			scanf(str,args...);
@@ -136,7 +133,7 @@ class Console{
 			#endif
 		}
 		template<typename... Args>
-		static void mvprint(int x,int y,const char *str,Args... args){
+		static void mvprint(int x,int y,const char *str,Args... args)noexcept{
 			#ifdef WIN_OS
 			move(x,y);
 			printf(str,args...);
@@ -145,7 +142,7 @@ class Console{
 			#endif
 		}
 		template<typename... Args>
-		static void mvprint(int x,int y,const Color &color,const char *str,Args... args){
+		static void mvprint(int x,int y,const Color &color,const char *str,Args... args)noexcept{
 			color.Begin();
 			#ifdef WIN_OS
 			move(x,y);
@@ -155,21 +152,26 @@ class Console{
 			#endif
 			color.End();
 		}
-		static void clear(){
-			#ifdef WIN_OS
-				system("cls");
-			#else
-				::clear();
+		static void flush()noexcept{
+			#ifndef WIN_OS
+			refresh();
 			#endif
 		}
-		static void sleep(unsigned ms){
+		static void clear()noexcept{
+			#ifdef WIN_OS
+			system("cls");
+			#else
+			::clear();
+			#endif
+		}
+		static void sleep(unsigned ms)noexcept{
 			#ifdef WIN_OS
 			Sleep(ms);
 			#else
 			usleep(ms*1000);
 			#endif
 		}
-		static void pause(int x,int y){
+		static void pause(int x,int y)noexcept{
 			#ifdef WIN_OS
 			move(x,y);
 			system("pause");
@@ -178,7 +180,7 @@ class Console{
 			getch();
 			#endif
 		}
-		Console(){
+		Console()noexcept{
 			#ifndef WIN_OS
 			initscr();
 			#endif
