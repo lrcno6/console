@@ -50,7 +50,25 @@ class Console{
 					CONSOLE_SCREEN_BUFFER_INFO info;
 					GetConsoleScreenBufferInfo(handle,&info);
 					WORD default_color=info.wAttributes;
-					color_value fg=m_fg==black?m_fg:(color_value)(m_fg|FOREGROUND_INTENSITY),bg=m_bg==black?m_bg:(color_value)(m_fg|FOREGROUND_INTENSITY);
+					color_value fg=m_fg,bg=m_bg;
+					switch(fg){
+						case Default:
+							fg=default_color&0xf;
+							break;
+						case black:
+							break;
+						default:
+							fg|=FOREGROUND_INTENSITY;
+					}
+					switch(bg){
+						case Default:
+							bg=(default_color&0xf0)>>4;
+							break;
+						case black:
+							break;
+						default:
+							bg|=FOREGROUND_INTENSITY;
+					}
 					SetConsoleTextAttribute(handle,fg|bg<<4);
 					#else
 					attron(COLOR_PAIR(m_id));
