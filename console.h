@@ -206,7 +206,9 @@ class Console{
 			#endif
 		}
 		~Console(){
-			#ifndef WIN_OS
+			#ifdef WIN_OS
+			clear();
+			#else
 			endwin();
 			#endif
 		}
