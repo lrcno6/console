@@ -53,21 +53,21 @@ class Console{
 					color_value fg=m_fg,bg=m_bg;
 					switch(fg){
 						case Default:
-							fg=default_color&0xf;
+							fg=(color_value)(default_color&0xf);
 							break;
 						case black:
 							break;
 						default:
-							fg|=FOREGROUND_INTENSITY;
+							fg=(color_value)(fg|FOREGROUND_INTENSITY);
 					}
 					switch(bg){
 						case Default:
-							bg=(default_color&0xf0)>>4;
+							bg=(color_value)((default_color&0xf0)>>4);
 							break;
 						case black:
 							break;
 						default:
-							bg|=FOREGROUND_INTENSITY;
+							bg=(color_value)(bg|FOREGROUND_INTENSITY);
 					}
 					SetConsoleTextAttribute(handle,fg|bg<<4);
 					#else
@@ -199,7 +199,9 @@ class Console{
 			#endif
 		}
 		Console()noexcept{
-			#ifndef WIN_OS
+			#ifdef WIN_OS
+			clear();
+			#else
 			initscr();
 			#endif
 		}
