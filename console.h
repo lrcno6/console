@@ -1,7 +1,9 @@
 #ifndef _CONSOLE_H_
 #define _CONSOLE_H_
 #include<cstdlib>
-#include"os.h"
+#if defined(_WIN32) || defined(_WIN64)
+#define WIN_OS
+#endif
 #ifdef WIN_OS
 #include<cstdio>
 #include<windows.h>

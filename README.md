@@ -6,7 +6,9 @@ cross-platform console library
 
 ## version
 
-beta 2.0: add Console::Color
+<!-- beta 2.0: add Console::Color -->
+
+inside version: change the way to detect the build environment
 
 ---
 
@@ -18,7 +20,7 @@ license: *LGPL-3.0*
 
 *Console* is a cross-platform console library. You can move the cursor, use colors and so on.
 
-it runs everywhere (in theory) (tested on *Windows (MSVC)*, *Windows (MinGW)* and *linux (g++)*)
+it runs everywhere (in theory) (tested on <!--*Windows (MSVC)*, *Windows (MinGW)* and--> *linux (g++)*)
 
 ---
 
@@ -27,9 +29,8 @@ it runs everywhere (in theory) (tested on *Windows (MSVC)*, *Windows (MinGW)* an
 you should make first:
 
 ```bash
-make linux # for linux (g++)
-make windows_msvc # for Windows (Visual C++)
-make windows_mingw # for Windows (MinGW)
+make gcc # for G++
+make msvc # for Visual C++
 ```
 
 and then link to *libconsole.a* or *console.lib*:
